@@ -22,6 +22,7 @@ public class OptionInforsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            String search = request.getParameter("search");
 
             String contents = "<!DOCTYPE html>\r\n" + //
                     "<html lang=\"en\">\r\n" + //
@@ -34,6 +35,13 @@ public class OptionInforsServlet extends HttpServlet {
                     "</head>\r\n" + //
                     "<body>\r\n" + //
                     "    <div class=\"container\">\r\n" + //
+                    "        <form action=\"/optionInforsServlet\">\r\n" + //
+                    "            <label for=\"\">\uAC80\uC0C9</label>\r\n" + //
+                    "            <input type=\"text\" name=\"search\" value='"+search+"'>\r\n" + //
+                    "            <button>\uAC80\uC0C9 \uD558\uAE30</button>\r\n" + //
+                    "        </form>\r\n" + //
+                    "    </div>\r\n" + //
+                    "    <div class=\"container\">\r\n" + //
                     "        <table class=\"table table-bordered table-hover\">\r\n" + //
                     "            <thead>\r\n" + //
                     "                <tr>\r\n" + //
@@ -44,7 +52,7 @@ public class OptionInforsServlet extends HttpServlet {
                     "            <tbody>\r\n";
             OptionInforsDao optionInforsDao = new OptionInforsDao();
             ArrayList optionInforList = new ArrayList<>();
-            optionInforList = optionInforsDao.SelectWithSearch("");
+            optionInforList = optionInforsDao.SelectWithSearch(search);
 
             for(int i=0; i< optionInforList.size(); i=i+1) {
                 HashMap optionInforRecord = new HashMap<>();
