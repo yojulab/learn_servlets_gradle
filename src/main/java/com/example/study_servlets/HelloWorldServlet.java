@@ -14,6 +14,7 @@ public class HelloWorldServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("HelloWorldServlet - doGet()");
         try {
+            response.setContentType("text/html;charset=UTF-8");
             PrintWriter printWriter = response.getWriter();
             String contents = "Yoju Lab !";
             printWriter.println(contents);
