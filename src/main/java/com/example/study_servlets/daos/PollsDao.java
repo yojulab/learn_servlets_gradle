@@ -8,6 +8,34 @@ import java.util.HashMap;
 import com.example.study_servlets.commons.Commons;
 
 public class PollsDao {
+    public int Insert(HashMap<String, Object> map) {
+        int count = 0;
+        try {
+            Commons commons = new Commons();
+            Statement statement = commons.getStatement(); // Editor in Workbanch
+            String query = "insert into statistics\n" + //
+                    "(STATISTICS_ID, RESPONDENTS_ID, QUESTIONS_ID, CHOICE_ID)\n" + //
+                    "values\n" ;
+            // print map
+            int loops = 1;
+            String userId = "R1";   // from session
+            for(String key : map.keySet()){
+                String uuid = commons.generateUUID();
+                if(loops > 1){
+                    query = query + ", ";
+                }
+                query = query + "('"+uuid+"', '"+userId+"', '"+key+"', '"+map.get(key)+"')\n" ;
+                // System.out.print(key +", "+ map.get(key));
+                loops = loops + 1;
+            }
+            query = query + ";";
+            count = statement.executeUpdate(query);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return count;
+    }
+
     public ArrayList SelectWithSearch(String search) {
         ArrayList InforList = new ArrayList<>();
         try {
@@ -37,5 +65,5 @@ public class PollsDao {
             System.out.println(e.getMessage());
         }
         return InforList;
-    }    
+    }
 }

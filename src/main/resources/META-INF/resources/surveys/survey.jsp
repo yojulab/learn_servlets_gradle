@@ -21,7 +21,7 @@
         </div>
     </div>
     <br>
-    <form method="get" action="survey.html"> 
+    <form method="get" action="/poll/SurveyDone"> 
     <div class=" container mx-auto">
         <%
         ArrayList surveyList = (ArrayList)request.getAttribute("surveyList");
@@ -31,19 +31,27 @@
             String questions = (String) survey.get("QUESTIONS");
             String questionsId = (String) survey.get("QUESTIONS_ID");
             String choice = (String) survey.get("CHOICE");
+            String choiceId = (String) survey.get("CHOICE_ID");
             if (!compare.equals(questionsId)) {
         %>
                 <p> <%= questions %></p>
-                <label><input type="radio" name="1번 문항" value="1"> <%= choice %></label> <br>
+                <label><input type="radio" name="<%= questionsId %>" value="<%= choiceId %>"> <%= choice %> <%= choiceId %></label> <br>
         <%
                 compare = questionsId;
             } else {
         %>
-                <label><input type="radio" name="1번 문항" value="1"> <%= choice %></label> <br>
+                <label><input type="radio" name="<%= questionsId %>" value="<%= choiceId %>"> <%= choice %> <%= choiceId %></label> <br>
         <%
             }
         }
         %>
+    </div>
+
+    <div class="container bg-white fs-6 py-6 row mx-auto my-3">
+        <div class="text-center d-flex justify-content-center py-2">
+            <button type="reset" class=" btn btn-white mx-2 btn-outline-dark">원래대로</button>
+            <button type="submit" class="btn btn-white btn-outline-dark bg-info">설문 제출</button>
+        </div>
     </div>
     </form>
 </body>
